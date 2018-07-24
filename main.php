@@ -4,13 +4,17 @@
 
     /* 入力受付 */
     //引数
-    $options = getopt("e:p:t:i:o:");
-    foreach (["e", "p", "t", "i", "o"] as $option) {
+    $options = getopt("e:p:t:i::o:");
+    foreach (["e", "p", "t", "o"] as $option) {
         if (!isset($options[$option])) {
             echo_help("param $option does not set.");
             exit();
         }
     }
+    if(!isset($options["i"])){
+        $option["i"] = 0;
+    }
+
     //入力ファイルの拡張子。extensionのe。xlsxとかcsvとか
     $input_type = $options["e"];
     //入力ファイルのパス。pathのp。
@@ -85,10 +89,14 @@
 
 {$err}
 usage:
- all params required
- e - Extension
- p - input file path
- t - table name to insert
+required
+  e - Extension
+  p - input file path
+  t - table name to insert
+  o - output file path
+
+not required
+  i - sheet index. default 0
 HELP;
 
     }
